@@ -26,9 +26,19 @@
       margin: 30px 0;
       min-height: 80px;
     }
-    iframe {
-      border-radius: 12px;
+    .playlist-link {
+      display: inline-block;
       margin-top: 20px;
+      font-size: 1.15rem;
+      color: #007acc;
+      text-decoration: underline;
+      background: #e6f2fa;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .playlist-link:hover {
+      background: #d0eaff;
     }
     footer {
       margin-top: 40px;
@@ -42,8 +52,10 @@
   <h2>Bienvenido Jose Manuel, me llamo Manuel y preparé esto para ti...</h2>
   <p id="mensaje">Cargando mensaje...</p>
 
-  <h2>Escucha nuestra playlist motivacional</h2>
-  <iframe id="playlist" width="300" height="380" allow="autoplay" allowfullscreen></iframe>
+  <h2>Escucha esta música y disfruta del día. ¡Eres mucho más de lo que piensas!</h2>
+  <a id="playlist-link" class="playlist-link" href="#" target="_blank" rel="noopener">
+    Ver playlist del día en YouTube Music
+  </a>
 
   <footer>
     <p>Mensajes actualizados automáticamente según el día y la hora.</p>
@@ -203,17 +215,17 @@
         return mensajesSemana[dia][indiceMensaje];
       }
 
-      function cargarPlaylist() {
+      function cargarPlaylistLink() {
         const dias = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
         const dia = dias[new Date().getDay()];
         const playlistId = playlistsPorDia[dia] || playlistsPorDia["lunes"];
-        const iframe = document.getElementById("playlist");
-        iframe.src = `https://music.youtube.com/embed/${playlistId}?autoplay=0&loop=1`;
+        const link = document.getElementById("playlist-link");
+        link.href = `https://music.youtube.com/playlist?list=${playlistId}`;
       }
 
-      // Actualiza el mensaje y la playlist cuando el DOM esté listo
+      // Actualiza el mensaje y el link de la playlist cuando el DOM esté listo
       document.getElementById("mensaje").textContent = obtenerMensaje();
-      cargarPlaylist();
+      cargarPlaylistLink();
     });
   </script>
 </body>
